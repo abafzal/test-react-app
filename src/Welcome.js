@@ -12,6 +12,7 @@ export default class Welcome extends React.Component {
     return (
       <div>
         <h1>Hello, {this.props.name}</h1>
+        <p>Hey Gideon, which dentist is best? </p>
         <List component="nav">
           {Object.keys(data).map(name => (
             <ListItem button key={name}>
