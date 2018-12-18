@@ -12,10 +12,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const styles = theme => ({
   root: {
     width: '100%',
+    overflowX: 'auto',
   },
   grow: {
     flexGrow: 1,
@@ -57,19 +60,15 @@ const styles = theme => ({
     color: 'inherit',
     width: '100%',
   },
+  table: {
+    maxWidth: '100%'
+  },
   inputInput: {
     paddingTop: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
     paddingLeft: theme.spacing.unit * 10,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: 120,
-      '&:focus': {
-        width: 200,
-      },
-    },
+    width: `calc( 800px - ${theme.spacing.unit * 11}px )`,
   },
 });
 
@@ -86,23 +85,25 @@ class Welcome extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
+        <AppBar position="static" >
+          <Toolbar >
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
             <Typography
               className={classes.title}
               variant="h6"
               color="inherit"
               noWrap
-            >
-              Material-UI
-          </Typography>
+            > Yo this is the title of the page
+            </Typography>
             <div className={classes.grow} />
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="Search…"
+                placeholder="Search"
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput
@@ -111,17 +112,20 @@ class Welcome extends React.Component {
                 onChange={this.updateSearch}
               />
             </div>
+            <div className={classes.grow} />
           </Toolbar>
         </AppBar>
-        <div>
-          <h1>Hello, {this.props.name}</h1>
-          <p style={{ textAlign: 'left' }} >Customers (1000)</p>
-          <Paper>
-            <Table >
+        <div className={classes.root}>
+          <p style={{ textAlign: 'left', paddingTop: "2%", paddingBottom: "2%" }} >Customers (1000)</p>
+          <Paper className={classes.root}>
+            <Table className={classes.table}>
               <TableHead>
                 <TableRow>
                   <TableCell>Name</TableCell>
-                  <TableCell numeric>Spend ($)</TableCell>
+                  <TableCell>Customer ID</TableCell>
+                  <TableCell>DUNS Number</TableCell>
+                  <TableCell>First Contract</TableCell>
+                  <TableCell>LCV</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -131,15 +135,29 @@ class Welcome extends React.Component {
                       <TableCell component="th" scope="row">
                         {name}
                       </TableCell>
-                      <TableCell numeric>{'$$$'}</TableCell>
+                      <TableCell component="th" scope="row">
+                        12345
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        67890
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        01-01-2018
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        $5.18M
+                      </TableCell>
                     </TableRow>
                   );
                 })}
               </TableBody>
             </Table>
           </Paper>
+          <Paper>
+            <p style={{ textAlign: 'center', paddingTop: "2%", paddingBottom: "2%" }} > Page 1 </p>
+          </Paper>
         </div>
-      </div>
+      </div >
 
 
     );
