@@ -143,7 +143,7 @@ class Welcome extends React.Component {
     })
       .then(response => response.json())
       .then(json => {
-        this.setState({ data: json });git
+        this.setState({ data: json });
       });
   }
 }
