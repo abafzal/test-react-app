@@ -25,7 +25,7 @@ const styles = theme => ({
     position: 'relative',
     backgroundColor: fade(theme.palette.common.black, 0.05),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.black, 0.15),
+      backgroundColor: fade(theme.palette.common.black, 0.10),
     },
     width: '100%',
   },
@@ -143,9 +143,11 @@ class Welcome extends React.Component {
     })
       .then(response => response.json())
       .then(json => {
-        this.setState({ data: json });
+        this.setState({ data: json });git
       });
   }
 }
+
+
 
 export default withStyles(styles)(Welcome)
