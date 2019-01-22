@@ -17,35 +17,20 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 const styles = theme => ({
   root: {
-    width: '100%',
+    elevation: '2',
+    width: 'absolute',
     overflowX: 'auto',
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
+    paddingLeft: '10%',
+    paddingRight: '10%',
   },
   search: {
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginLeft: 0,
     width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit,
-      width: 'auto',
-    },
+
   },
   searchIcon: {
     width: theme.spacing.unit * 9,
@@ -59,16 +44,22 @@ const styles = theme => ({
   inputRoot: {
     color: 'inherit',
     width: '100%',
+
   },
   table: {
-    maxWidth: '100%'
+      width: 'absolute',
+      overflowX: 'auto',
   },
   inputInput: {
     paddingTop: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
     paddingLeft: theme.spacing.unit * 10,
-    width: `calc( 800px - ${theme.spacing.unit * 11}px )`,
+    width: '100%',
+   transition: theme.transitions.create("width"),
+   [theme.breakpoints.up("md")]: {
+       width: 200
+   }
   },
 });
 
@@ -85,19 +76,8 @@ class Welcome extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" >
-          <Toolbar >
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              className={classes.title}
-              variant="h6"
-              color="inherit"
-              noWrap
-            > Yo this is the title of the page
-            </Typography>
-            <div className={classes.grow} />
+        <AppBar className={classes.root} >
+          <Toolbar className={classes.root}>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -112,12 +92,11 @@ class Welcome extends React.Component {
                 onChange={this.updateSearch}
               />
             </div>
-            <div className={classes.grow} />
           </Toolbar>
         </AppBar>
         <div className={classes.root}>
-          <p style={{ textAlign: 'left', paddingTop: "2%", paddingBottom: "2%" }} >Customers (1000)</p>
-          <Paper className={classes.root}>
+          <p style={{ textAlign: 'left', paddingTop: "10%"}} >Business Customers (50) </p>
+          <Paper className={classes.table}>
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
@@ -125,7 +104,7 @@ class Welcome extends React.Component {
                   <TableCell>Customer ID</TableCell>
                   <TableCell>DUNS Number</TableCell>
                   <TableCell>First Contract</TableCell>
-                  <TableCell>LCV</TableCell>
+                  <TableCell>Revenue</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -152,9 +131,6 @@ class Welcome extends React.Component {
                 })}
               </TableBody>
             </Table>
-          </Paper>
-          <Paper>
-            <p style={{ textAlign: 'center', paddingTop: "2%", paddingBottom: "2%" }} > Page 1 </p>
           </Paper>
         </div>
       </div >
