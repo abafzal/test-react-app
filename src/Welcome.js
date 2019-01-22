@@ -9,11 +9,8 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 
 const styles = theme => ({
   root: {
@@ -22,15 +19,15 @@ const styles = theme => ({
     overflowX: 'auto',
     paddingLeft: '10%',
     paddingRight: '10%',
+    flexGrow: 1,
   },
   search: {
     position: 'relative',
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: fade(theme.palette.common.black, 0.05),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.black, 0.15),
     },
     width: '100%',
-
   },
   searchIcon: {
     width: theme.spacing.unit * 9,
@@ -40,9 +37,10 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    color: theme.palette.common.black
   },
   inputRoot: {
-    color: 'inherit',
+    color: theme.palette.common.black,
     width: '100%',
 
   },
@@ -76,7 +74,7 @@ class Welcome extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar className={classes.root} >
+        <AppBar className={classes.root} color="default">
           <Toolbar className={classes.root}>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
