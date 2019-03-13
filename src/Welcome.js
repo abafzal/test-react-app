@@ -11,15 +11,18 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
+import classnames from "classnames";
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 const styles = theme => ({
-  root: {
-    elevation: '2',
-    width: 'absolute',
-    overflowX: 'auto',
-    paddingLeft: '10%',
-    paddingRight: '10%',
-    flexGrow: 1,
+  padding: {
+    padding: "0 10%"
+  },
+  body: {
+    backgroundColor: "#8080802e",
+    minHeight: "calc(100vh - 16px)",
+    paddingBottom: "32px"
   },
   search: {
     position: 'relative',
@@ -45,7 +48,6 @@ const styles = theme => ({
 
   },
   table: {
-      width: 'absolute',
       overflowX: 'auto',
   },
   inputInput: {
@@ -74,8 +76,9 @@ class Welcome extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar className={classes.root} color="default">
-          <Toolbar className={classes.root}>
+        <CssBaseline />
+        <AppBar className={classes.padding} color="default">
+          <Toolbar disableGutters>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -92,38 +95,22 @@ class Welcome extends React.Component {
             </div>
           </Toolbar>
         </AppBar>
-        <div className={classes.root}>
-          <p style={{ textAlign: 'left', paddingTop: "10%"}} >Business Customers (50) </p>
-          <Paper className={classes.table}>
-            <Table className={classes.table}>
+        <div className={classnames(classes.padding, classes.body)}>
+          <p style={{ textAlign: 'left', paddingTop: "10%", fontSize: '20px'}} >Business Customers (50) </p>
+          <Paper className={classnames(classes.table)}>
+            <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Customer ID</TableCell>
-                  <TableCell>DUNS Number</TableCell>
-                  <TableCell>First Contract</TableCell>
-                  <TableCell>Revenue</TableCell>
+                  {data && data.columns && data.columns.map(name => <TableCell>{name}</TableCell>)}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Object.keys(data).filter(name => name.toLowerCase().includes(search)).map(name => {
+                {data && data.recordPage && data.recordPage.filter(obj => Object.values(obj).reduce((memo, val) => {return memo || val.toString().toLowerCase().includes(search)}, false )).map((obj, i) => {
                   return (
-                    <TableRow key={name}>
-                      <TableCell component="th" scope="row">
-                        {name}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        12345
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        67890
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        01-01-2018
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        $5.18M
-                      </TableCell>
+                    <TableRow key={i}>
+                      {Object.values(obj).map(x => <TableCell component="td" scope="row">
+                        {x}
+                      </TableCell>)}
                     </TableRow>
                   );
                 })}
@@ -138,9 +125,10 @@ class Welcome extends React.Component {
   }
 
   componentDidMount() {
-    fetch("https://harsh-stuff.firebaseio.com/oralSurgeons/BC/names.json", {
-      method: "GET"
-    })
+    fetch("/preview.json", {
+      method: "GET",
+        }
+      )
       .then(response => response.json())
       .then(json => {
         this.setState({ data: json });
