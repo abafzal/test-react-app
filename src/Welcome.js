@@ -48,7 +48,11 @@ const styles = theme => ({
 
   },
   table: {
-      overflowX: 'auto',
+    overflowX: 'auto',
+  },
+  tableHead: {
+    fontSize: '0.9rem',
+    fontWeight: '500',
   },
   inputInput: {
     paddingTop: theme.spacing.unit,
@@ -96,16 +100,16 @@ class Welcome extends React.Component {
           </Toolbar>
         </AppBar>
         <div className={classnames(classes.padding, classes.body)}>
-          <p style={{ textAlign: 'left', paddingTop: "10%", fontSize: '20px'}} >Business Customers (50) </p>
+          <p style={{ textAlign: 'left', paddingTop: "10%", fontSize: '20px'}} >Business Customers (15) </p>
           <Paper className={classnames(classes.table)}>
             <Table>
               <TableHead>
                 <TableRow>
-                  {data && data.columns && data.columns.map(name => <TableCell>{name}</TableCell>)}
+                  {data && data.columns && data.columns.map(name => <TableCell className={classnames(classes.tableHead)}>{name}</TableCell>)}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data && data.recordPage && data.recordPage.filter(obj => Object.values(obj).reduce((memo, val) => {return memo || val.toString().toLowerCase().includes(search)}, false )).map((obj, i) => {
+                {data && data.data && data.data.filter(obj => Object.values(obj).reduce((memo, val) => {return memo || val.toString().toLowerCase().includes(search)}, false )).map((obj, i) => {
                   return (
                     <TableRow key={i}>
                       {Object.values(obj).map(x => <TableCell component="td" scope="row">
